@@ -1,5 +1,6 @@
 
 import { Github, Home, Search, Settings } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Sidebar,
   SidebarContent,
@@ -35,8 +36,10 @@ const items = [
 ];
 
 export function AppSidebar() {
+  const isMobile = useIsMobile();
+
   return (
-    <Sidebar>
+    <Sidebar defaultCollapsed={isMobile}>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>RepoSeek</SidebarGroupLabel>
@@ -45,8 +48,8 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon className="h-4 w-4" />
+                    <a href={item.url} className="flex items-center gap-2">
+                      <item.icon className="h-5 w-5" />
                       <span>{item.title}</span>
                     </a>
                   </SidebarMenuButton>
