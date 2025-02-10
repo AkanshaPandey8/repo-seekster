@@ -1,16 +1,14 @@
 
-import { Github, Home, Search, Settings } from "lucide-react";
+import { Github, Home, Menu, Search, Settings, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Button } from "@/components/ui/button";
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/ui/sidebar";
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const items = [
   {
@@ -39,26 +37,29 @@ export function AppSidebar() {
   const isMobile = useIsMobile();
 
   return (
-    <Sidebar collapsed={isMobile}>
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>RepoSeek</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url} className="flex items-center gap-3">
-                      <item.icon className="h-5 w-5" />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-    </Sidebar>
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button variant="ghost" size="icon" className="lg:hidden">
+          <Menu className="h-6 w-6" />
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+        <SheetHeader>
+          <SheetTitle>RepoSeek</SheetTitle>
+        </SheetHeader>
+        <nav className="flex flex-col gap-4 mt-8">
+          {items.map((item) => (
+            <a
+              key={item.title}
+              href={item.url}
+              className="flex items-center gap-3 px-4 py-2 text-sm font-medium rounded-md hover:bg-accent"
+            >
+              <item.icon className="h-5 w-5" />
+              <span>{item.title}</span>
+            </a>
+          ))}
+        </nav>
+      </SheetContent>
+    </Sheet>
   );
 }
